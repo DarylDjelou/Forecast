@@ -3,6 +3,7 @@ from geopy.geocoders import Nominatim
 
 geolocator = Nominatim(user_agent="Forecast")
 
+
 def geocode_city(city_name):
     """
     Geocode a city name to get its latitude and longitude.
@@ -16,16 +17,17 @@ def geocode_city(city_name):
     if not isinstance(city_name, str) or not city_name.strip():
         raise ValueError("city must be a non-empty string")
     try:
-        location = geolocator.geocode(city_name)
+        location = geolocator.geocode(city_name,
+                                       featuretype="city",
+                                       exactly_one=True,
+                                       addressdetails=True,
+                                       timeout=10)[0]
     except Exception as e:
         print(f"Error geocoding city '{city_name}': {e}")
         return None
-    if location:
-        return {
-            "city": city_name,
-            "latitude": location.latitude,
-            "longitude": location.longitude,
-            "display_name": location.address
-        }
-    else:
-        return None
+    return {
+        "city": city_name,
+        "latitude": location.latitude,
+        "longitude": location.longitude,
+        "display_name": location.address
+    }
