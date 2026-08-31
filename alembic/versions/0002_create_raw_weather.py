@@ -10,13 +10,22 @@ import sqlalchemy as sa
 def upgrade() -> None:
     op.create_table(
         'raw_weather',
-        sa.Column('location_id', sa.Integer, sa.ForeignKey('location.location_id'), nullable=False),
-        sa.Column('forecast_timestamp', sa.DateTime, nullable=False),
-        sa.Column('temperature_2m', sa.Double, nullable=True),
-        sa.Column('relative_humidity_2m', sa.Double, nullable=True),
-        sa.Column('apparent_temperature', sa.Float, nullable=True),
-        sa.Column('retrieved_at', sa.DateTime, nullable=False),
-        sa.PrimaryKeyConstraint('location_id', 'forecast_timestamp','retrieved_at', name='raw_weather_pk'),
+        sa.Column('location_id', sa.Integer,
+                  sa.ForeignKey('location.location_id'), nullable=False),
+        sa.Column('forecast_timestamp',
+                  sa.DateTime(timezone=True),nullable=False),
+        sa.Column('temperature_2m', sa.Double,
+                  nullable=True),
+        sa.Column('relative_humidity_2m', sa.Double,
+                  nullable=True),
+        sa.Column('apparent_temperature', sa.Double,
+                  nullable=True),
+        sa.Column('retrieved_at', sa.DateTime(timezone=True),
+                  nullable=False),
+        sa.PrimaryKeyConstraint('location_id', 'forecast_timestamp',
+                                'retrieved_at', name='raw_weather_pk'),
+        sa.CheckConstraint('relative_humidity_2m>0 AND relative_humidity_m <= 0',
+                           name='relative_humidity_2m'),
     )
 
 def downgrade() -> None:
