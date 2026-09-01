@@ -4,7 +4,7 @@ from geopy.geocoders import Nominatim
 geolocator = Nominatim(user_agent="Forecast")
 
 
-def geocode_city(city_name):
+def geocode_city(city_name)-> dict:
     """
     Geocode a city name to get its latitude and longitude.
 
@@ -21,7 +21,7 @@ def geocode_city(city_name):
                                        featuretype="city",
                                        exactly_one=True,
                                        addressdetails=True,
-                                       timeout=10)[0]
+                                       timeout=10)
     except Exception as e:
         print(f"Error geocoding city '{city_name}': {e}")
         return None

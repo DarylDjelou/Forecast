@@ -23,7 +23,12 @@ def get_weather_response(city_info):
     params = {
         "latitude": latitude,
         "longitude": longitude,
-        "hourly": "temperature_2m",
+        "start": pd.Timestamp.now(tz="UTC").strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "hourly": [
+            "temperature_2m",
+            "relativehumidity_2m",
+            "apparent_temperature",
+        ],
         "timezone": "auto",
     }
     responses= openmeteo.weather_api(url, params=params)
