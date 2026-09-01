@@ -6,7 +6,11 @@ Created: 2026-08-31 17:45:00.000000
 
 from alembic import op
 import sqlalchemy as sa
+from alembic.command import revision
 
+revision = '0002_create_raw_weather'
+down_revision = '0001_create_location'
+depends_on = None
 def upgrade() -> None:
     op.create_table(
         'raw_weather',
@@ -24,7 +28,7 @@ def upgrade() -> None:
                   nullable=False),
         sa.PrimaryKeyConstraint('location_id', 'forecast_timestamp',
                                 'retrieved_at', name='raw_weather_pk'),
-        sa.CheckConstraint('relative_humidity_2m>0 AND relative_humidity_m <= 0',
+        sa.CheckConstraint('relative_humidity_2m>0 AND relative_humidity_2m <= 0',
                            name='relative_humidity_2m'),
     )
 
