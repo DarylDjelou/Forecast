@@ -1,10 +1,12 @@
+from typing import Any
+
 from geopy.geocoders import Nominatim
 
 
 geolocator = Nominatim(user_agent="Forecast")
 
 
-def geocode_city(city_name)-> dict:
+def geocode_city(city_name)-> dict[str, str | Any] | None:
     """
     Geocode a city name to get its latitude and longitude.
 
@@ -24,6 +26,8 @@ def geocode_city(city_name)-> dict:
                                        timeout=10)
     except Exception as e:
         print(f"Error geocoding city '{city_name}': {e}")
+        return None
+    if location  is None:
         return None
     return {
         "city": city_name,
