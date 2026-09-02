@@ -11,6 +11,7 @@ geopy==2.5.0
 greenlet==3.5.5
 h11==0.16.0
 idna==3.18
+iniconfig==2.3.0
 jh2==5.0.13
 Mako==1.4.1
 MarkupSafe==3.0.3
@@ -18,10 +19,14 @@ niquests==3.21.0
 numpy==2.4.6
 openmeteo_requests==1.7.5
 openmeteo_sdk==1.28.0
+packaging==26.3
 pandas==3.0.5
 platformdirs==4.11.3
+pluggy==1.6.0
 psycopg==3.3.5
 psycopg2==2.9.12
+Pygments==2.21.0
+pytest==9.1.1
 python-dateutil==2.9.0.post0
 python-dotenv==1.2.3
 qh3==1.9.4
